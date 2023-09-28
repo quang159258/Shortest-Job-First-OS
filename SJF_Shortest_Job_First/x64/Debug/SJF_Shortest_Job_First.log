@@ -1,0 +1,15 @@
+﻿  SJF_Shortest_Job_First.cpp
+Q:\WordSpace\CODE\learnC\SJF_Shortest_Job_First\SJF_Shortest_Job_First\mywindows.h(212,14): warning C4267: 'argument': conversion from 'size_t' to 'short', possible loss of data
+Q:\WordSpace\CODE\learnC\SJF_Shortest_Job_First\SJF_Shortest_Job_First\mywindows.h(254,14): warning C4267: 'argument': conversion from 'size_t' to 'short', possible loss of data
+Q:\WordSpace\CODE\learnC\SJF_Shortest_Job_First\SJF_Shortest_Job_First\mywindows.h(357,14): warning C4267: 'argument': conversion from 'size_t' to 'short', possible loss of data
+Q:\WordSpace\CODE\learnC\SJF_Shortest_Job_First\SJF_Shortest_Job_First\Functions.h(17,11): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+Q:\WordSpace\CODE\learnC\SJF_Shortest_Job_First\SJF_Shortest_Job_First\Functions.h(19,15): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+Q:\WordSpace\CODE\learnC\SJF_Shortest_Job_First\SJF_Shortest_Job_First\Functions.h(98,11): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+Q:\WordSpace\CODE\learnC\SJF_Shortest_Job_First\SJF_Shortest_Job_First\Functions.h(106,11): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+Q:\WordSpace\CODE\learnC\SJF_Shortest_Job_First\SJF_Shortest_Job_First\SJF_Shortest_Job_First.cpp(27,15): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+Q:\WordSpace\CODE\learnC\SJF_Shortest_Job_First\SJF_Shortest_Job_First\SJF_Shortest_Job_First.cpp(73,19): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+Q:\WordSpace\CODE\learnC\SJF_Shortest_Job_First\SJF_Shortest_Job_First\SJF_Shortest_Job_First.cpp(140,21): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+Q:\WordSpace\CODE\learnC\SJF_Shortest_Job_First\SJF_Shortest_Job_First\SJF_Shortest_Job_First.cpp(156,13): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+Q:\WordSpace\CODE\learnC\SJF_Shortest_Job_First\SJF_Shortest_Job_First\SJF_Shortest_Job_First.cpp(239,43): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+Q:\WordSpace\CODE\learnC\SJF_Shortest_Job_First\SJF_Shortest_Job_First\SJF_Shortest_Job_First.cpp(244,43): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+  SJF_Shortest_Job_First.vcxproj -> Q:\WordSpace\CODE\learnC\SJF_Shortest_Job_First\x64\Debug\SJF_Shortest_Job_First.exe
