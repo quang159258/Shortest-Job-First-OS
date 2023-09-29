@@ -233,12 +233,22 @@ int find_index_in_processes(vector <Process> Proccesses, int im)
             return i;
     }
 }
+void Cal_waiting_turn(Process &P,int time)
+{
+        P.waiting_time =time- P.arrive-P.burst;
+        P.turn = P.waiting_time + P.burst;
+}
 vector<Process> Copy_Vector(vector<Process> Processes)
 {
     vector<Process>Clone;
     for (int i = 0; i < Processes.size(); i++)
         Clone.push_back(Processes[i]);
     return Clone;
+}
+void EraseVector(vector<Process>& Processes, vector<Process>::iterator p)
+{
+    Processes.erase(p);
+    Processes.shrink_to_fit();
 }
 void PrintProcess(vector<Process> Processes)
 {

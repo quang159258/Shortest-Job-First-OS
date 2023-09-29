@@ -47,7 +47,6 @@ void SJF_NonPreempting(vector<Process> &Processes)//Không ưu tiên - Độc qu
     int check_p_running = 0;
     vector<Process>Clone=Copy_Vector(Processes);
     vector<Process> ReadyList;
-    vector<int>FlagTime;
     Process P_Running;
     P_Running.remain = 999;
     int x = 30, y = 5;
@@ -59,8 +58,7 @@ void SJF_NonPreempting(vector<Process> &Processes)//Không ưu tiên - Độc qu
             if (Clone[0].arrive == timer)
             {
                 ReadyList.push_back(Clone[0]);
-                Clone.erase(Clone.begin());
-                Clone.shrink_to_fit();
+                EraseVector(Clone, Clone.begin());
             }
         }
         if (check_p_running == 0 || P_Running.remain == 0)
@@ -68,16 +66,13 @@ void SJF_NonPreempting(vector<Process> &Processes)//Không ưu tiên - Độc qu
             if (P_Running.remain == 0)
             {
                 int id = find_index_in_processes(Processes, P_Running.id);
-
-                Processes[id].waiting_time = timer - Processes[id].arrive - Processes[id].burst;
-                Processes[id].turn = Processes[id].waiting_time + Processes[id].burst;
+                Cal_waiting_turn(Processes[id], timer);
             }
             int im = Index_Min_Process_ReadyList(ReadyList);
             P_Running = ReadyList[im];
-            ReadyList.erase(ReadyList.begin() + im);
-            ReadyList.shrink_to_fit();
+            EraseVector(ReadyList, ReadyList.begin()+im);
             check_p_running = 1;
-            int w = max(4, round(P_Running.burst / (AmountTime * 1.0) * 10) * 2 + 1);
+            int w = max(4, round(P_Running.burst / (AmountTime * 1.0) * 10) * 2 + 3);
             Box_E(x + width_tmp + 1, y, w, 2, 240, P_Running.id);
             gotoXY(x + width_tmp + 1, y + 3);
             cout << timer;
@@ -91,8 +86,7 @@ void SJF_NonPreempting(vector<Process> &Processes)//Không ưu tiên - Độc qu
     }
     int id = find_index_in_processes(Processes, P_Running.id);
 
-    Processes[id].waiting_time =AmountTime - Processes[id].arrive - Processes[id].burst;
-    Processes[id].turn = Processes[id].waiting_time + Processes[id].burst;
+    Cal_waiting_turn(Processes[id], AmountTime);
     gotoXY(x + width_tmp + 1, y + 3);
     cout << AmountTime;
 }
@@ -113,9 +107,7 @@ void SJF_Preempting(vector<Process> &Processes)//ưu tiên - Khong Độc quyề
     vector<Process> ReadyList;
     Process P_Running;
 
-    P_Running.remain = 9999;
     P_Running.id = 0;
-    P_Running.burst = 9999;
     Process tmp = P_Running;
 
     for (timer = 0; timer < AmountTime; timer++)
@@ -126,8 +118,7 @@ void SJF_Preempting(vector<Process> &Processes)//ưu tiên - Khong Độc quyề
             if (Clone[0].arrive == timer)
             {
                 ReadyList.push_back(Clone[0]); //switch from Prs to RL
-                Clone.erase(Clone.begin());
-                Clone.shrink_to_fit();
+                EraseVector(Clone, Clone.begin());
                 check_ReadyList_Add = 1;
             }
         }
@@ -145,8 +136,7 @@ void SJF_Preempting(vector<Process> &Processes)//ưu tiên - Khong Độc quyề
         {
             int im = Index_Min_Process_ReadyList(ReadyList);
             P_Running = ReadyList[im];
-            ReadyList.erase(ReadyList.begin() + im);
-            ReadyList.shrink_to_fit();
+            EraseVector(ReadyList, ReadyList.begin()+im);
             check_p_running = 1;
             if (id_tmp != P_Running.id)
             {
@@ -173,17 +163,14 @@ void SJF_Preempting(vector<Process> &Processes)//ưu tiên - Khong Độc quyề
             check_p_running = 0;
             id = find_index_in_processes(Processes, P_Running.id);
             
-            Processes[id].waiting_time = timer + 1 - Processes[id].arrive - Processes[id].burst;
-            Processes[id].turn = Processes[id].waiting_time + Processes[id].burst;
+            Cal_waiting_turn(Processes[id], timer+1);
         }
 
         if (ReadyList.size() == 0 && Clone.size() == 0)
             break;
     }
     id = find_index_in_processes(Processes, P_Running.id);
-
-    Processes[id].waiting_time = AmountTime - Processes[id].arrive - Processes[id].burst;
-    Processes[id].turn = Processes[id].waiting_time + Processes[id].burst;
+    Cal_waiting_turn(Processes[id], AmountTime);
     gotoXY(x, y + 3);
     cout << AmountTime;
 }
