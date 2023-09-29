@@ -8,8 +8,8 @@ struct Process
     int id;
     int burst;
     int remain;
-    int waiting_time = 0;
-    int done = 0;
+    int waiting_time;
+    int turn;
 };
 
 int MaxLengthString(string nd[], int sl)
@@ -223,4 +223,48 @@ vector<Process> UI_add_No_Arr()
     }
     ShowCur(0);
     return L;
+}
+int find_index_in_processes(vector <Process> Proccesses, int im)
+{
+    int size = Proccesses.size();;
+    for (int i = 0; i < size; i++)
+    {
+        if (im == Proccesses[i].id)
+            return i;
+    }
+}
+vector<Process> Copy_Vector(vector<Process> Processes)
+{
+    vector<Process>Clone;
+    for (int i = 0; i < Processes.size(); i++)
+        Clone.push_back(Processes[i]);
+    return Clone;
+}
+void PrintProcess(vector<Process> Processes)
+{
+    int x = 26, y = 10;
+    int n = Processes.size();
+    Box(x+4, y, 50,  n+1, 240, " ");
+    gotoXY(x + 10, y);
+    cout << "Arrival";
+    gotoXY(x + 20, y);
+    cout << "Burst";
+    gotoXY(x + 30, y);
+    cout << "Waiting";
+    gotoXY(x + 40, y++);
+    cout << "Turn Around";
+    for (int i = 0; i < n; i++)
+    {
+        gotoXY(x + 5, y);
+        cout << "P" << Processes[i].id;
+        gotoXY(x + 10, y);
+        cout << Processes[i].arrive;
+        gotoXY(x + 20, y);
+        cout << Processes[i].burst;
+        gotoXY(x + 30, y);
+        cout <<  Processes[i].waiting_time;
+        gotoXY(x + 40, y);
+        cout <<  Processes[i].turn;
+        y += 1;
+    }
 }
