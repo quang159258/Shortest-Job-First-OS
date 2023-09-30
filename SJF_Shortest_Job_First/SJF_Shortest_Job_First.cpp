@@ -53,12 +53,16 @@ void SJF_NonPreempting(vector<Process> &Processes)//Không ưu tiên - Độc qu
     int width_tmp = 0;
     for (int timer = 0; timer < AmountTime; timer++)
     {
-        if (Clone.size() != 0)
+        loop:
+        if (Clone.size()!= 0)
         {
             if (Clone[0].arrive == timer)
             {
-                ReadyList.push_back(Clone[0]);
-                EraseVector(Clone, Clone.begin());
+                
+                    ReadyList.push_back(Clone[0]);
+                    EraseVector(Clone, Clone.begin());
+                    goto loop;
+                
             }
         }
         if (check_p_running == 0 || P_Running.remain == 0)
@@ -112,7 +116,7 @@ void SJF_Preempting(vector<Process> &Processes)//ưu tiên - Khong Độc quyề
 
     for (timer = 0; timer < AmountTime; timer++)
     {
-
+        loop:
         if (Clone.size() != 0)
         {
             if (Clone[0].arrive == timer)
@@ -120,6 +124,7 @@ void SJF_Preempting(vector<Process> &Processes)//ưu tiên - Khong Độc quyề
                 ReadyList.push_back(Clone[0]); //switch from Prs to RL
                 EraseVector(Clone, Clone.begin());
                 check_ReadyList_Add = 1;
+                goto loop;
             }
         }
 
