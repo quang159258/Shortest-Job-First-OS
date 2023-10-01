@@ -1,16 +1,18 @@
-#pragma once
+﻿#pragma once
 #include<string>
 #include<iostream>
 using namespace std;
-struct Process
-{
-    int arrive;
-    int id;
-    int burst;
-    int remain;
-    int waiting_time;
-    int turn;
-};
+
+
+        struct Process
+        {
+            int arrive;
+            int id;
+            int burst;
+            int remain;
+            int waiting_time;
+            int turn;
+        };
 
 int MaxLengthString(string nd[], int sl)
 {
@@ -235,7 +237,7 @@ int find_index_in_processes(vector <Process> Proccesses, int im)
 }
 void Cal_waiting_turn(Process &P,int time)
 {
-        P.waiting_time =time- P.arrive-P.burst;
+        P.waiting_time = time - P.arrive-P.burst;
         P.turn = P.waiting_time + P.burst;
 }
 vector<Process> Copy_Vector(vector<Process> Processes)

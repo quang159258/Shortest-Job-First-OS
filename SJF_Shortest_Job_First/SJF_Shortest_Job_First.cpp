@@ -12,18 +12,9 @@ void No_Arrival_Time_SJF(vector <Process> &list)
     int AmountTime = Cal_Amount_Time(list);
     for (int i = 0; i < list.size(); i++)//vi da sap xep theo thu tu tang dan roi nen h ta chi can cong vo thoi k can so sanh hay gi het
     {
-        if (i != 0)
-        {
-            temp += list[i - 1].burst;
-            list[i].waiting_time = temp;
-            list[i].turn = temp + list[i].burst;//cong thuc tinh thoi gian hoan thanh la thoi gian cho + thoi gian burst
-
-        }
-        else
-        {
-            list[i].turn = list[i].burst;//khong can tinh thoi gian cho cua tien trinh dau tien vi no = 0 san roi
-
-        }
+        list[i].waiting_time = temp;
+        list[i].turn = temp + list[i].burst;
+        temp += list[i].burst;
         int w = max(4, round(list[i].burst / (AmountTime * 1.0) * 10) * 2 + 1);
         Box_E(x, y, w, 2, 240, list[i].id);
         if (x != 30)
@@ -48,7 +39,6 @@ void SJF_NonPreempting(vector<Process> &Processes)//Không ưu tiên - Độc qu
     vector<Process>Clone=Copy_Vector(Processes);
     vector<Process> ReadyList;
     Process P_Running;
-    P_Running.remain = 999;
     int x = 30, y = 5;
     int width_tmp = 0;
     for (int timer = 0; timer < AmountTime; timer++)
@@ -111,9 +101,6 @@ void SJF_Preempting(vector<Process> &Processes)//ưu tiên - Khong Độc quyề
     vector<Process> ReadyList;
     Process P_Running;
 
-    P_Running.id = 0;
-    Process tmp = P_Running;
-
     for (timer = 0; timer < AmountTime; timer++)
     {
         loop:
@@ -131,7 +118,6 @@ void SJF_Preempting(vector<Process> &Processes)//ưu tiên - Khong Độc quyề
         if (check_p_running && check_ReadyList_Add)
         {
             ReadyList.push_back(P_Running);
-            P_Running = tmp;
             check_p_running = 0;
             check_ReadyList_Add = 0;
 
