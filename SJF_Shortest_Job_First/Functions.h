@@ -142,6 +142,7 @@ vector<Process> UI_add()
     L.resize(n_i);
     int tmp_length(0);
     int xpre(0);
+    int min = 999;
     for (int i = 0; i < n_i; i++)
     {
         L[i].id = i + 1;
@@ -161,9 +162,11 @@ vector<Process> UI_add()
                 if (isDigit(n_str) && stoi(n_str) >= 0)
                 {
                     L[i].arrive = stoi(n_str);
+                    min = min < L[i].arrive ? min : L[i].arrive;
                     break;
                 }
         }
+        
         while (1)
         {
             gotoXY(x + 20, y + 3);
@@ -177,6 +180,8 @@ vector<Process> UI_add()
                 }
         }
     }
+    for (int i = 0; i < n_i; i++)
+        L[i].arrive -= min;
     ShowCur(0);
     return L;
 }
