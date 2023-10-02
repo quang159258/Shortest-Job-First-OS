@@ -5,7 +5,7 @@
 #include"Functions.h"
 #include<math.h>
 using namespace std;
-void No_Arrival_Time_SJF(vector <Process> &list)
+void No_Arrival_Time_SJF(vector <Process>& list)
 {
     int temp = 0;
     int x = 30, y = 5;
@@ -32,39 +32,48 @@ void No_Arrival_Time_SJF(vector <Process> &list)
         x += w;
     }
 }
-void SJF_NonPreempting(vector<Process> &Processes)//Không ưu tiên - Độc quyền
+void SJF_NonPreempting(vector<Process>& Processes)//Không ưu tiên - Độc quyền
 {
     int AmountTime = Cal_Amount_Time(Processes);
     int check_p_running = 0;
-    vector<Process>Clone=Copy_Vector(Processes);
+    vector<Process>Clone = Copy_Vector(Processes);
     vector<Process> ReadyList;
     Process P_Running;
     int x = 30, y = 5;
     int width_tmp = 0;
+    Process p0;
     for (int timer = 0; timer < AmountTime; timer++)
     {
-        loop:
-        if (Clone.size()!= 0)
+    loop:
+        if (Clone.size() != 0)
         {
             if (Clone[0].arrive == timer)
             {
-                
-                    ReadyList.push_back(Clone[0]);
-                    EraseVector(Clone, Clone.begin());
-                    goto loop;
-                
+
+                ReadyList.push_back(Clone[0]);
+                EraseVector(Clone, Clone.begin());
+                goto loop;
+
             }
         }
         if (check_p_running == 0 || P_Running.remain == 0)
         {
-            if (P_Running.remain == 0)
+            if (P_Running.remain == 0 && P_Running.id!=0)
             {
                 int id = find_index_in_processes(Processes, P_Running.id);
                 Cal_waiting_turn(Processes[id], timer);
             }
             int im = Index_Min_Process_ReadyList(ReadyList);
-            P_Running = ReadyList[im];
-            EraseVector(ReadyList, ReadyList.begin()+im);
+            if (im == -1 && Clone.size() != 0)
+            {
+                init_P0(p0, Clone, timer);
+                AmountTime += p0.burst;
+                P_Running = p0;
+            }
+            else {
+                P_Running = ReadyList[im];
+                EraseVector(ReadyList, ReadyList.begin() + im);
+            }
             check_p_running = 1;
             int w = max(4, round(P_Running.burst / (AmountTime * 1.0) * 10) * 2 + 3);
             Box_E(x + width_tmp + 1, y, w, 2, 240, P_Running.id);
@@ -86,7 +95,7 @@ void SJF_NonPreempting(vector<Process> &Processes)//Không ưu tiên - Độc qu
 }
 
 
-void SJF_Preempting(vector<Process> &Processes)//ưu tiên - Khong Độc quyền
+void SJF_Preempting(vector<Process>& Processes)//ưu tiên - Khong Độc quyền
 {
     int AmountTime = Cal_Amount_Time(Processes);
     int check_p_running = 0;
@@ -100,10 +109,10 @@ void SJF_Preempting(vector<Process> &Processes)//ưu tiên - Khong Độc quyề
     vector<Process>Clone = Copy_Vector(Processes);
     vector<Process> ReadyList;
     Process P_Running;
-
+    Process p0;
     for (timer = 0; timer < AmountTime; timer++)
     {
-        loop:
+    loop:
         if (Clone.size() != 0)
         {
             if (Clone[0].arrive == timer)
@@ -125,13 +134,23 @@ void SJF_Preempting(vector<Process> &Processes)//ưu tiên - Khong Độc quyề
 
         if (check_p_running == 0)
         {
+           
             int im = Index_Min_Process_ReadyList(ReadyList);
-            P_Running = ReadyList[im];
-            EraseVector(ReadyList, ReadyList.begin()+im);
+            if(im==-1&&Clone.size()!=0)
+            {
+                init_P0(p0, Clone, timer);
+                AmountTime += p0.burst;
+                P_Running = p0;
+            }
+            else
+            {
+                P_Running = ReadyList[im];
+                EraseVector(ReadyList, ReadyList.begin() + im);
+            }
             check_p_running = 1;
             if (id_tmp != P_Running.id)
             {
-                w = max(4, round(w / (AmountTime * 1.0) * 10) * 2 + 1);
+                w = max(4, round(w / (AmountTime * 1.0) * 10) * 1+3);
 
                 Box_E(x, y, w, 2, 240, P_Running.id);
                 gotoXY(x, y + 3);
@@ -140,7 +159,7 @@ void SJF_Preempting(vector<Process> &Processes)//ưu tiên - Khong Độc quyề
                 w = 0;
             }
             id_tmp = P_Running.id;
-            
+
 
 
         }
@@ -148,13 +167,15 @@ void SJF_Preempting(vector<Process> &Processes)//ưu tiên - Khong Độc quyề
         P_Running.remain--;
         w++;
         width_tmp++;
-        w = max(4, round(width_tmp / (AmountTime * 1.0) * 10) * 2 + 1);
+        w = max(4, round(width_tmp / (AmountTime * 1.0) * 10) * 1+3);
         if (P_Running.remain == 0)
         {
             check_p_running = 0;
-            id = find_index_in_processes(Processes, P_Running.id);
-            
-            Cal_waiting_turn(Processes[id], timer+1);
+            if (P_Running.id != 0)
+            {
+                id = find_index_in_processes(Processes, P_Running.id);
+                Cal_waiting_turn(Processes[id], timer + 1);
+            }
         }
 
         if (ReadyList.size() == 0 && Clone.size() == 0)
@@ -273,4 +294,3 @@ loop:
     }
     return 0;
 }
-

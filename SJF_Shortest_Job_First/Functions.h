@@ -285,3 +285,9 @@ void PrintProcess(vector<Process> Processes)
         y += 1;
     }
 }
+void init_P0(Process& p0, vector<Process> Processes,int timer)
+{
+    p0.id = 0;
+    p0.burst = Processes[0].arrive-timer;
+    p0.remain = Processes[0].arrive - timer;
+}
