@@ -203,6 +203,7 @@ loop:
     xptr = x, yptr = y;
     xpre = xptr, ypre = yptr;
     int checkLuaChon = 1;
+    int nhap = 0;
     ShowCur(0);
     Box(1, 4, 118, 21, b_color, " ");
     Box_E(37, 0, 46, 2, b_color, "Thuat Toan SJF ERROR");
@@ -259,6 +260,7 @@ loop:
                         Processes = UI_add();
                         n = Processes.size();
                         sort(Processes, 0, n - 1);
+                        nhap = 1;
                         break;
                     case 1:
                         Processes = UI_add_No_Arr();
@@ -271,11 +273,13 @@ loop:
                         _getch();
                         break;
                     case 2:
+                        if (nhap == 0)break;
                         SJF_NonPreempting(Processes);
                         PrintProcess(Processes);
                         _getch();
                         break;
                     case 3:
+                        if (nhap == 0)break;
                         SJF_Preempting(Processes);
                         PrintProcess(Processes);
                         _getch();
