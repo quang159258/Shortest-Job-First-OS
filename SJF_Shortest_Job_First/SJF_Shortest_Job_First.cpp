@@ -198,12 +198,12 @@ int main()
     int xptr = x, yptr = y;
     int xpre = xptr, ypre = yptr;
     int b_color = 240, b_color_bright = 192;
+    int nhap = 0;
 loop:
     SetConsoleTitle(L"Thuat Toan SJF - Team ERROR");
     xptr = x, yptr = y;
     xpre = xptr, ypre = yptr;
     int checkLuaChon = 1;
-    int nhap = 0;
     ShowCur(0);
     Box(1, 4, 118, 21, b_color, " ");
     Box_E(37, 0, 46, 2, b_color, "Thuat Toan SJF ERROR");
